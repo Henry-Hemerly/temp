@@ -2,13 +2,26 @@ import React, { useEffect, useState } from 'react'
 import TodoItem from './components/TodoItem'
 import AddTodo from './components/AddTodo'
 import { getTodos, addTodo, updateTodo, deleteTodo } from './API'
+import { io } from 'socket.io-client'
 
 const App: React.FC = () => {
   const [todos, setTodos] = useState<ITodo[]>([])
 
+  const socket = io();
+if (socket.connected)
+  console.log('socket.io is connected.')
+
+  // const mouseMove = () => {
+  //   document.onmousemove = (e) => {
+  //     socket.emit('mouse position', [e.movementX, e.movementY]);
+  //     console.log(e.movementX, ' ', e.movementY, 'HHHHH');  
+  //   };
+  // }
+
   useEffect(() => {
     fetchTodos()
   }, [])
+
 
   const fetchTodos = (): void => {
     getTodos()
